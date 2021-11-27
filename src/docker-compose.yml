@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  theclient:
+    image: squigs/annoyingclient:1.0
+    build: annoying.client
+    ports:
+      - 6500:80
