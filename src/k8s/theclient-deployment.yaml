@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: theclient
+  name: theclient
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: theclient
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: theclient
+    spec:
+      containers:
+        - image: squigs/annoyingclient:1.0
+          name: theclient
+          ports:
+            - containerPort: 80
+          resources: {}
+      restartPolicy: Always
+status: {}

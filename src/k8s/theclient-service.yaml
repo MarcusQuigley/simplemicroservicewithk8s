@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: theclient
+  name: theclient
+spec:
+  ports:
+    - name: "6500"
+      port: 6500
+      targetPort: 80
+  selector:
+    app: theclient
+status:
+  loadBalancer: {}
