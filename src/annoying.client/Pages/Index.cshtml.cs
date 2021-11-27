@@ -12,6 +12,8 @@ namespace annoying.client.Pages
     {
         private readonly ILogger<IndexModel> _logger;
 
+        public DateTime NowTime { get; set; }
+
         public IndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
@@ -19,7 +21,7 @@ namespace annoying.client.Pages
 
         public void OnGet()
         {
-
+            NowTime = DateTime.Now;
         }
     }
 }
