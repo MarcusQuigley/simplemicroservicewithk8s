@@ -1,25 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    app: theclient
-  name: theclient
+  name: theclient-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: theclient
-  strategy: {}
+      app: theclient-pod
   template:
     metadata:
       labels:
-        app: theclient
+        app: theclient-pod
     spec:
       containers:
         - image: squigs/annoyingclient:1.0
-          name: theclient
+          name: theclient-container
           ports:
             - containerPort: 80
-          resources: {}
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
       restartPolicy: Always
-status: {}
