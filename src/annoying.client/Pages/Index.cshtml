@@ -7,4 +7,16 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>K8s is a bit of a pain at @Model.NowTime </a>.</p>
+    @if (Model.Players.Any())
+    {
+        @foreach (var player in @Model.Players)
+        {
+            <p>@player.Name #= @player.Number</p>
+        }
+    }
+    else
+    {
+        <p>No players to show.</p>
+    }
+
 </div>

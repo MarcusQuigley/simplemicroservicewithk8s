@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using annoying.client.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,6 +26,10 @@ namespace annoying.client
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+
+            services.AddScoped<IPlayerService, PlayerService>();
+            services.AddDatabaseStuff(Configuration);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,5 +58,24 @@ namespace annoying.client
                 endpoints.MapRazorPages();
             });
         }
+    }
+
+    public static class ServiceCollectionExtensionMethods
+    {
+        public static IServiceCollection AddDatabaseStuff(this IServiceCollection services, IConfiguration config)
+        {
+            var server = config["DBServer"] ?? "localhost";
+            var port = config["DPort"] ?? "1433";
+            var database = config["DBDatabase"] ?? "FootballDb";
+            var user = config["DBUser"] ?? "SA";
+            var password = config["DBPassword"] ?? "6Tpeople";
+            var connectString = $"Server={server},{port};Initial Catalog={database};User ID={user};Password={password}";
+            services.AddDbContext<ClientDbContext>(options =>
+            {
+                options.UseSqlServer(connectString);
+            });
+            return services;
+        }
+
     }
 }
