@@ -22,9 +22,24 @@
             }
         },
         {
-            "name": ".NET Core Attach",
+            "name": "Client Docker Attach",
             "type": "coreclr",
-            "request": "attach"
-        }
+            "request": "attach",
+            "processId": "${command:pickRemoteProcess}",
+            "pipeTransport": {
+                "pipeProgram": "docker",
+                "pipeArgs": [
+                    "exec",
+                    "-i",
+                    "theclient"
+                ],
+                "debuggerPath": "/root/vsdbg/vsdbg",
+                "pipeCwd": "${workspaceRoot}",
+                "quoteArgs": false
+            },
+            "sourceFileMap": {
+                "/clientapp": "${workspaceRoot}/src/"
+            }
+        },
     ]
 }

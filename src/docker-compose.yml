@@ -1,8 +1,27 @@
 version: '3.4'
 
 services:
+  thesqlserverdb:
+    image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "6Tpeople"
+      MSSQL_PID: Express
+    ports:
+      - 1433:1433
   theclient:
     image: squigs/annoyingclient:1.0
-    build: annoying.client
+    container_name: theclient
+    build:
+      context: annoying.client
+      #target: debug
+    environment:
+      "DBServer": "thesqlserverdb"
+      "DBPort": "1433"
+      "DBDatabase": "FootballDb"
+      "DBUser": "SA"
+      "DBPassword": "6Tpeople"
     ports:
-      - 6500:80
+      - 6520:80
+    depends_on:
+      - thesqlserverdb

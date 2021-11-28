@@ -65,11 +65,13 @@ namespace annoying.client
         public static IServiceCollection AddDatabaseStuff(this IServiceCollection services, IConfiguration config)
         {
             var server = config["DBServer"] ?? "localhost";
-            var port = config["DPort"] ?? "1433";
+            var port = config["DBPort"] ?? "1433";
             var database = config["DBDatabase"] ?? "FootballDb";
             var user = config["DBUser"] ?? "SA";
             var password = config["DBPassword"] ?? "6Tpeople";
-            var connectString = $"Server={server},{port};Initial Catalog={database};User ID={user};Password={password}";
+            var connectString = $"Server={server}, {port};Initial Catalog={database};User ID={user};Password={password}";
+            //var connectString = $"server={server};user id={user};password={password};database={database};";
+            System.Console.WriteLine($"conn: {connectString}");
             services.AddDbContext<ClientDbContext>(options =>
             {
                 options.UseSqlServer(connectString);
