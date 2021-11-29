@@ -4,8 +4,8 @@ metadata:
   name: theclient-service
 spec:
   ports:
-    - name: "6500"
-      port: 6500
+    - name: "7342"
+      port: 7342
       targetPort: 80
   selector:
     app: theclient-pod

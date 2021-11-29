@@ -13,7 +13,18 @@ spec:
         app: theclient-pod
     spec:
       containers:
-        - image: squigs/annoyingclient:1.0
+        - env:
+            - name: DBDatabase
+              value: footballdb
+            - name: DBPassword
+              value: password
+            - name: DBPort
+              value: "5432"
+            - name: DBServer
+              value: thedb-service
+            - name: DBUser
+              value: marcus
+          image: squigs/annoyingclient:1.0
           name: theclient-container
           ports:
             - containerPort: 80

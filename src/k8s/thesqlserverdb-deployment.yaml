@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: thedb-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: thedb-pod
+  template:
+    metadata:
+      labels:
+        app: thedb-pod
+    spec:
+      containers:
+        - env:
+            - name: POSTGRES_PASSWORD
+              value: password
+            - name: POSTGRES_USER
+              value: marcus
+          image: postgres:alpine
+          name: thedb-container
+          ports:
+            - containerPort: 5432
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+      restartPolicy: Always
+      # volumes:
+      #   - name: sqlserverdata-pvc
+      #     persistentVolumeClaim:
+      #       claimName: sqlserverdata-pvc
