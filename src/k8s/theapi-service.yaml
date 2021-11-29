@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: theapi-service
+spec:
+  ports:
+    - name: "whonew"
+      port: 7347
+      targetPort: 80
+  selector:
+    app: theapi-pod
+  type: LoadBalancer

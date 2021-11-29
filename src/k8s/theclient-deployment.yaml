@@ -14,16 +14,8 @@ spec:
     spec:
       containers:
         - env:
-            - name: DBDatabase
-              value: footballdb
-            - name: DBPassword
-              value: password
-            - name: DBPort
-              value: "5432"
-            - name: DBServer
-              value: thedb-service
-            - name: DBUser
-              value: marcus
+            - name: FootballUri
+              value: "http://theapi-service:7347/"
           image: squigs/annoyingclient:1.0
           name: theclient-container
           ports:
