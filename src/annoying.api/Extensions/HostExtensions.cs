@@ -1,13 +1,13 @@
 using System;
 using System.Threading.Tasks;
-using annoying.client.Services;
+//using annoying.api.Services;
 //using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Polly;
 
-namespace annoying.client.Extensions
+namespace annoying.api.Extensions
 {
     public static class HostExtensions
     {

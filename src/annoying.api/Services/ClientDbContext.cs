@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace annoying.client.Services
+namespace annoying.api.Services
 {
     public class ClientDbContext : DbContext
     {

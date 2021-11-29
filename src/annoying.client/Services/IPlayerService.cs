@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+using Web.Extensions;
 
 namespace annoying.client.Services
 {
@@ -10,16 +12,22 @@ namespace annoying.client.Services
     }
     public class PlayerService : IPlayerService
     {
-        private readonly ClientDbContext _dbContext;
+        private readonly HttpClient _client;
 
-        public PlayerService(ClientDbContext dbContext)
+        public PlayerService(HttpClient client)
         {
-            _dbContext = dbContext;
+            _client = client;
+            //_client.BaseAddress = 
         }
 
         public async Task<IEnumerable<Player>> GetPlayers()
         {
-            return await _dbContext.Players.ToListAsync();
+
+
+            var response = await _client.GetAsync("api/football");
+            var players = await response.ReadContentAs<List<Player>>();
+            // return await _dbContext.Players.ToListAsync();
+            return players;
         }
     }
 }

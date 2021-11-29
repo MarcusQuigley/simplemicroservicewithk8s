@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using annoying.client.Services;
+using annoying.api.Services;
 
-namespace annoying.client.Migrations
+namespace annoying.api.Migrations
 {
     [DbContext(typeof(ClientDbContext))]
     partial class ClientDbContextModelSnapshot : ModelSnapshot
@@ -18,7 +18,7 @@ namespace annoying.client.Migrations
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-            modelBuilder.Entity("annoying.client.Services.Player", b =>
+            modelBuilder.Entity("annoying.api.Services.Player", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

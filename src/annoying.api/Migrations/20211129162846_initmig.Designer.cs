@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using annoying.client.Services;
+using annoying.api.Services;
 
-namespace annoying.client.Migrations
+namespace annoying.api.Migrations
 {
     [DbContext(typeof(ClientDbContext))]
-    [Migration("20211129142612_initmig")]
+    [Migration("20211129162846_initmig")]
     partial class initmig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,7 +20,7 @@ namespace annoying.client.Migrations
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-            modelBuilder.Entity("annoying.client.Services.Player", b =>
+            modelBuilder.Entity("annoying.api.Services.Player", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

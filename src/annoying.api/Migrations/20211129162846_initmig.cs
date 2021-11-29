@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace annoying.client.Migrations
+namespace annoying.api.Migrations
 {
     public partial class initmig : Migration
     {
