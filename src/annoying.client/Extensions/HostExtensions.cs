@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using annoying.client.Services;
-using Microsoft.Data.SqlClient;
+//using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -14,7 +14,7 @@ namespace annoying.client.Extensions
         // public async static Task<IHost> MigrateAndSeedDatabase<T>(this IHost host) where T : DbContext
         public static IHost MigrateAndSeedDatabase<T>(this IHost host, int retries = 3) where T : DbContext
         {
-            var policy = Policy.Handle<SqlException>().WaitAndRetry(retries, times => TimeSpan.FromMilliseconds(times * 100));
+            var policy = Policy.Handle<Npgsql.NpgsqlException>().WaitAndRetry(retries, times => TimeSpan.FromMilliseconds(times * 100));
             using (var scope = host.Services.CreateScope())
             {
                 var context = scope.ServiceProvider.GetRequiredService<T>();

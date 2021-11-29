@@ -28,7 +28,7 @@ namespace annoying.client
             services.AddRazorPages();
 
             services.AddScoped<IPlayerService, PlayerService>();
-            services.AddDatabaseStuff(Configuration);
+            services.AddPostgresDbContext(Configuration);
 
         }
 
@@ -62,22 +62,54 @@ namespace annoying.client
 
     public static class ServiceCollectionExtensionMethods
     {
-        public static IServiceCollection AddDatabaseStuff(this IServiceCollection services, IConfiguration config)
+        public static IServiceCollection AddPostgresDbContext(this IServiceCollection services, IConfiguration config)
         {
-            var server = config["DBServer"] ?? "localhost";
-            var port = config["DBPort"] ?? "1433";
-            var database = config["DBDatabase"] ?? "FootballDb";
-            var user = config["DBUser"] ?? "SA";
-            var password = config["DBPassword"] ?? "6Tpeople";
-            var connectString = $"Server={server}, {port};Initial Catalog={database};User ID={user};Password={password}";
-            //var connectString = $"server={server};user id={user};password={password};database={database};";
-            System.Console.WriteLine($"conn: {connectString}");
+
+            //Create  postgres container
+            //docker run -e POSTGRES_DB=catalogdb -e POSTGRES_USER=marcus -e POSTGRES_PASSWORD=password -p 5432:5432 --name postgres_catalog -d postgres
+            //run bash to access postgres container
+            //docker exec -it 480c32e2bb53 "bash" //where 480c3.. is the container id
+
+            //psql -h localhost -p 5432 -U marcus -d catalogdb
+            // \l lists dbs 
+            // \c <db> connects to db 
+            // \d lists db objects
+            var server = config["DBServer"];// ?? "localhost";
+
+            var port = config["DBPort"];// ?? "5432";
+            var database = config["DBDatabase"];// ?? "catalogdb";
+
+
+            var user = config["DBUser"];// ?? "marcus";
+            var password = config["DBPassword"];// ?? "password";
+
+            var connectionString = $"Host={server}; Port={port}; Database={database}; Username={user}; Password={password};";
+            Console.WriteLine($"CONNECTION STRING Catalog: {connectionString}");
+
+            //"User ID =postgres;Password=password;Server=localhost;Port=5432;Database=testDb;Integrated Security=true;Pooling=true;" //alternative
             services.AddDbContext<ClientDbContext>(options =>
-            {
-                options.UseSqlServer(connectString);
-            });
+                options.UseNpgsql(connectionString)
+                       .UseSnakeCaseNamingConvention()
+                    );
+
             return services;
         }
+        // public static IServiceCollection AddSqlServer(this IServiceCollection services, IConfiguration config)
+        // {
+        //     var server = config["DBServer"] ?? "localhost";
+        //     var port = config["DBPort"] ?? "1433";
+        //     var database = config["DBDatabase"] ?? "FootballDb";
+        //     var user = config["DBUser"] ?? "SA";
+        //     var password = config["DBPassword"] ?? "6Tpeople";
+        //     var connectString = $"Server={server}, {port};Initial Catalog={database};User ID={user};Password={password}";
+        //     //var connectString = $"server={server};user id={user};password={password};database={database};";
+        //     System.Console.WriteLine($"conn: {connectString}");
+        //     services.AddDbContext<ClientDbContext>(options =>
+        //     {
+        //         options.UseSqlServer(connectString);
+        //     });
+        //     return services;
+        // }
 
     }
 }

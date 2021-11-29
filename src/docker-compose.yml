@@ -1,14 +1,15 @@
 version: '3.4'
 
 services:
-  thesqlserverdb:
-    image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+  thedb:
+    image: postgres:alpine # mcr.microsoft.com/mssql/server:2017-latest-ubuntu
     environment:
-      ACCEPT_EULA: "Y"
-      SA_PASSWORD: "6Tpeople"
-      MSSQL_PID: Express
+      POSTGRES_USER: "marcus"
+      POSTGRES_PASSWORD: "password"
     ports:
-      - 1433:1433
+      - 5432:5432
+    # volumes:
+    #   - sqlserverdata:/var/opt/mssql
   theclient:
     image: squigs/annoyingclient:1.0
     container_name: theclient
@@ -16,12 +17,16 @@ services:
       context: annoying.client
       #target: debug
     environment:
-      "DBServer": "thesqlserverdb"
-      "DBPort": "1433"
+      "DBServer": "thedb"
+      "DBPort": "5432"
       "DBDatabase": "FootballDb"
-      "DBUser": "SA"
-      "DBPassword": "6Tpeople"
+      "DBUser": "marcus"
+      "DBPassword": "password"
     ports:
       - 6520:80
     depends_on:
-      - thesqlserverdb
+      - thedb
+
+# volumes:
+#   sqlserverdata:
+#     external: true
