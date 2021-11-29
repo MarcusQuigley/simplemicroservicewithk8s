@@ -12,3 +12,8 @@ use FootballDb
 go
 select * from Players
 go
+
+
+docker build -t squigs/annoyingapi:1.0 .
+
+docker run -d -p 8080:80 --name ballsup squigs/annoyingclient:1.0

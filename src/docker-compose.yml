@@ -10,11 +10,11 @@ services:
       - 5432:5432
     # volumes:
     #   - sqlserverdata:/var/opt/mssql
-  theclient:
-    image: squigs/annoyingclient:1.0
-    container_name: theclient
+  theapi:
+    image: squigs/annoyingapi:1.0
+    container_name: theapi
     build:
-      context: annoying.client
+      context: annoying.api
       #target: debug
     environment:
       "DBServer": "thedb"
@@ -23,9 +23,22 @@ services:
       "DBUser": "marcus"
       "DBPassword": "password"
     ports:
-      - 6520:80
+      - 6515:80
     depends_on:
       - thedb
+
+  theclient:
+    image: squigs/annoyingclient:1.0
+    container_name: theclient
+    build:
+      context: annoying.client
+      #target: debug
+    environment:
+      "FootballUri": "http://theapi"
+    ports:
+      - 6510:80
+    depends_on:
+      - theapi
 
 # volumes:
 #   sqlserverdata:
