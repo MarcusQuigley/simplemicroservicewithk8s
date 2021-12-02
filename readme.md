@@ -17,3 +17,5 @@ go
 docker build -t squigs/annoyingapi:1.0 .
 
 docker run -d -p 8080:80 --name ballsup squigs/annoyingclient:1.0
+
+psql -h localhost -p 5432 -U marcus -d footballdb

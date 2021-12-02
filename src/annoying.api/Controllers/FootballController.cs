@@ -27,5 +27,12 @@ namespace annoying.api.Controllers
             var players = await _playerService.GetPlayers();
             return players != null ? Ok(players) : NotFound();
         }
+
+        [HttpPost]
+        public async Task<ActionResult<bool>> AddPlayer(Player player)
+        {
+            var result = await _playerService.AddPlayer(player);
+            return Ok(result);
+        }
     }
 }

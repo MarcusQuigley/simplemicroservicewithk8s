@@ -27,6 +27,16 @@ namespace annoying.client.Pages
         {
             NowTime = DateTime.Now;
             Players = await _playerService.GetPlayers();
+        }
+        public async Task OnPostAddPlayer(string name, string number)
+        {
+            var player = new Player
+            {
+                Name = name,
+                Number = int.Parse(number)
+            };
+            await _playerService.AddPlayer(player);
+            Players = await _playerService.GetPlayers();
 
         }
     }

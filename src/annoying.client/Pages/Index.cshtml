@@ -7,6 +7,20 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>K8s is a bit of a pain at @Model.NowTime </a>.</p>
+
+    <div class="row">
+        <div class="col-9">
+            <h4>Enter new player here!</h4>
+            <form asp-page-handler="addplayer" class="form-inline" method="post">
+                @* <a asp-page-handler="SellProduct" asp-route-id="@item.ProductId">Add player</a>*@
+                <label class="sr-only">Code</label>
+                <input type="text" class="form-control mb-2 mr-sm-2" name="name" placeholder="Name">
+                <input type="text" class="form-control mb-2 mr-sm-2" name="number" placeholder="Number">
+                <input type="submit" class="filterButton" value="Apply" />
+            </form>
+        </div>
+    </div>
+
     @if (Model.Players.Any())
     {
         @foreach (var player in @Model.Players)
