@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: theapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: theapi
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: theapi
+    spec:
+      containers:
+        - env:
+            - name: DBDatabase
+              value: FootballDb
+            - name: DBPassword
+              value: password
+            - name: DBPort
+              value: "5432"
+            - name: DBServer
+              value: thedb
+            - name: DBUser
+              value: marcus
+          image: squigs/annoyingapi:1.0
+          name: theapi
+          ports:
+            - containerPort: 80
+          resources: {}
+      restartPolicy: Always
+status: {}

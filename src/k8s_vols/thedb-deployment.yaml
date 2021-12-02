@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: thedb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: thedb
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: thedb
+    spec:
+      containers:
+        - env:
+            - name: POSTGRES_PASSWORD
+              value: password
+            - name: POSTGRES_USER
+              value: marcus
+          image: postgres:alpine
+          name: thedb
+          ports:
+            - containerPort: 5432
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          volumeMounts:
+            - mountPath: /var/lib/postgresql
+              name: playerdata
+      restartPolicy: Always
+      volumes:
+        - name: playerdata
+          persistentVolumeClaim:
+            claimName: playerdata
+status: {}
