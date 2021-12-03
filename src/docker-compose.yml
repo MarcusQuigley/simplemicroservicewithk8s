@@ -10,6 +10,7 @@ services:
       - 5432:5432
     volumes:
       - playerdata:/var/lib/postgresql
+
   theapi:
     image: squigs/annoyingapi:1.0
     container_name: theapi
@@ -17,15 +18,24 @@ services:
       context: annoying.api
       #target: debug
     environment:
-      "DBServer": "thedb"
-      "DBPort": "5432"
-      "DBDatabase": "FootballDb"
-      "DBUser": "marcus"
-      "DBPassword": "password"
+      "ASPNETCORE_ENVIRONMENT": "Docker"
     ports:
       - 6515:80
     depends_on:
       - thedb
+
+  thegateway:
+    image: squigs/annoyinggateway:1.0
+    container_name: thegateway
+    build:
+      context: annoying.apigateway
+      #target: debug
+    environment:
+      "ASPNETCORE_ENVIRONMENT": "Docker"
+    ports:
+      - 6520:80
+    depends_on:
+      - theapi
 
   theclient:
     image: squigs/annoyingclient:1.0
@@ -34,11 +44,12 @@ services:
       context: annoying.client
       #target: debug
     environment:
-      "FootballUri": "http://theapi"
+      "ASPNETCORE_ENVIRONMENT": "Docker"
     ports:
-      - 6510:80
+      - 12000:80
     depends_on:
       - theapi
+      - thegateway
 
 volumes:
   playerdata:
