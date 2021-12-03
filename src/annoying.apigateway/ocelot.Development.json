@@ -1,0 +1,32 @@
+{
+    "GlobalConfiguration": {
+        "BaseUrl": "https://localhost:5555"
+    },
+    "Routes": [
+        {
+            "DownstreamPathTemplate": "/api/football",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 6515
+                }
+            ],
+            "UpstreamPathTemplate": "/f/api/football",
+            "UpstreamHttpMethod": [
+                "GET",
+                "PUT",
+                "POST"
+            ],
+            // "AuthenticationOptions": {
+            //     "AuthenticationProviderKey": "GloboTicketGatewayAuthenticationScheme",
+            //     "AllowedScopes": [
+            //         "basket.fullaccess"
+            //     ]
+            // },
+            // "AddHeadersToRequest": {
+            //     "MyCustomHeader2": "notappearing2"
+            // }
+        }
+    ]
+}
