@@ -26,8 +26,11 @@ spec:
             limits:
               memory: "128Mi"
               cpu: "500m"
+          volumeMounts:
+            - mountPath: /var/lib/postgresql
+              name: playerdata
       restartPolicy: Always
-      # volumes:
-      #   - name: sqlserverdata-pvc
-      #     persistentVolumeClaim:
-      #       claimName: sqlserverdata-pvc
+      volumes:
+        - name: playerdata
+          persistentVolumeClaim:
+            claimName: playerdata-claim
