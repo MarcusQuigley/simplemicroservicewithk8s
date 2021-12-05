@@ -53,4 +53,4 @@ services:
 
 volumes:
   playerdata:
-    external: true
+    external: false
