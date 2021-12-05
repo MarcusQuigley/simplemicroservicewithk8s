@@ -15,6 +15,10 @@ namespace annoying.client
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((hostContext, config) =>
+                {
+                    System.Console.WriteLine($" In client  Environment name :{hostContext.HostingEnvironment.EnvironmentName}");
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

@@ -22,7 +22,11 @@ namespace annoying.api
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
+            .ConfigureAppConfiguration((hostContext, config) =>
+                {
+                    System.Console.WriteLine($" In api  Environment name :{hostContext.HostingEnvironment.EnvironmentName}");
+                })
+            .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
                 });

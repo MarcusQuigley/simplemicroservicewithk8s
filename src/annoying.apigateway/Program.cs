@@ -19,7 +19,7 @@ namespace annoying.apigateway
                 .ConfigureAppConfiguration((hostContext, config) =>
                 {
                     config.AddJsonFile($"ocelot.{hostContext.HostingEnvironment.EnvironmentName}.json", true, true);
-                    System.Console.WriteLine($"host: {hostContext.HostingEnvironment.EnvironmentName}");
+                    System.Console.WriteLine($" In apigateway Environment name :{hostContext.HostingEnvironment.EnvironmentName}");
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {

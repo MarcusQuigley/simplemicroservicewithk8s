@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
         - env:
-            - name: FootballUri
-              value: "http://theapi-service:7347/"
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Kubernetes
           image: squigs/annoyingclient:1.0
           name: theclient-container
           ports:

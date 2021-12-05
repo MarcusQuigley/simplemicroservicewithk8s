@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: C:\Code\tools\kompose.exe convert -o ./k8s_ocelot
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: theclient
+  name: theclient
+spec:
+  ports:
+    - name: "12000"
+      port: 12000
+      targetPort: 80
+  selector:
+    io.kompose.service: theclient
+status:
+  loadBalancer: {}

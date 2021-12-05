@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: theapi-deployment
+  name: thegateway-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: theapi-pod
+      app: thegateway-pod
   template:
     metadata:
       labels:
-        app: theapi-pod
+        app: thegateway-pod
     spec:
       containers:
         - env:
             - name: ASPNETCORE_ENVIRONMENT
-              value: Kubernete
-          image: squigs/annoyingapi:1.0
-          name: theapi-container
+              value: Kubernetes
+          image: squigs/annoyinggateway:1.0
+          name: thegateway-container
           ports:
             - containerPort: 80
           resources:
